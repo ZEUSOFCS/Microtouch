@@ -2,27 +2,29 @@
 
 // Detect touch screen devices
 if ("ontouchstart" in document.documentElement) {
-  // Register touch event handlers
-  document
-    .querySelector(".touch")
-    .addEventListener("touchstart", process_touchstart, false);
+  // Loop through document for .touch classes
+  document.querySelectorAll(".touch").forEach(function(element) {
+    element.addEventListener("touchstart", process_touchstart, false);
 
-  // Touchstart handler
-  function process_touchstart(e) {
-    // Use the event's data to call out to the appropriate gesture handlers
-    switch (e.touches.length) {
-      case 1:
-        handle_touch(e);
-      case 2:
-        handle_touch(e);
-      case 3:
-        handle_touch(e);
-        break;
-      default:
-        gesture_not_supported(e);
-        break;
+    // Touchstart handler
+    function process_touchstart(e) {
+      // Use the event's data to call out to the appropriate gesture handlers
+      switch (e.touches.length) {
+        case 1:
+          touch_supported(e);
+          break;
+        case 2:
+          touch_supported(e);
+          break;
+        case 3:
+          touch_supported(e);
+          break;
+        default:
+          gesture_not_supported(e);
+          break;
+      }
     }
-  }
+  });
 
   /**
    * Customized gestures that are not supported
@@ -40,12 +42,8 @@ if ("ontouchstart" in document.documentElement) {
    *
    * @description: this function adds touch support on touch suppported devices
    *
-
+   **/
   function touch_supported(e) {
-    var element = document.queryAllSelector(".no-touch");
-    if (element !== null) {
-      //element.classList.remove("no-touch");
-    }
+     // Do something after the element is touched
   }
-  **/
 }
